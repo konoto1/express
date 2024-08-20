@@ -1,6 +1,7 @@
 import express from 'express';
 import { servicesData } from './data/servicesData.js';
 import { members } from './data/members.js';
+import { students } from './data/students.js';
 
 const app = express();
 const port = 3000;
@@ -56,6 +57,29 @@ app.get('/team/:name', (req, res) => {
         return res.send(`Team member: ${req.params.name} all info`);
     }
     return res.send(`Team member with name ${req.params.name} not found`);
+});
+
+app.get('/students', (req, res) => {
+    const keys = Object.keys(students);
+    let str = '';
+    keys.map((name, index) => index === (keys.length - 1)
+        ? str += `,ir ${students[name].name}.`
+        : str += `${students[name].name}, `);
+    return res.send(`Mokosi ${keys.length} studentai: ${str.replaceAll(', ,', ' ')}`);
+});
+
+app.get('/students/:studentName', (req, res) => {
+    const originalStudentName = req.params.studentName;
+    const studentName = originalStudentName.toLowerCase();
+    if (students[studentName] === undefined) {
+        return res.send(`Studento, vardu ${originalStudentName} nera.`)
+    } else {
+        const { name, age, isMarried } = students[studentName];
+        const gender = name.endsWith('s');
+        const man = isMarried ? 'vedes.' : 'nevedes.';
+        const woman = isMarried ? 'istekejusi.' : 'neistekejusi.';
+        return res.send(`${gender ? 'Studentas' : 'Studente'}, vardu ${name} yra ${age} metu ir yra ${gender ? man : woman}`);
+    }
 });
 
 app.get('*', (req, res) => {
