@@ -10,14 +10,9 @@ studentsRouter.get('/', (req, res) => {
         return res.send(`Nesimoko nei vienas studentas`);
     }
     if (names.length === 1) {
-        return res.send(`Mokosi ${names.length} studentas: ${names}`);
+        return res.send(`Mokosi ${names.length} studentas: ${names[0]}`);
     }
-    if (names.length > 1) {
-        const str = names.join(', ');
-        return res.send(`Mokosi ${names.length} studentai: ${str}`);
-    }
-
-
+    const str = names.slice(0, -1).join(', ') + ' ir ' + names.at(-1);
     return res.send(`Mokosi ${names.length} studentai: ${str}`);
 });
 

@@ -7,11 +7,11 @@ import { servicesData } from '../data/servicesData.js'
 export const serviceMembersRouter = express.Router();
 
 serviceMembersRouter.get('/', (req, res) => {
-    if (servicesData.includes(params[0])) {
+    if (servicesData.includes(req.params.serviceName)) {
 
         return res.send(`Services "${req.params.serviceName}" member list`);
     }
-    console.log(params);
+
     return res.send('Such service not found because no params provided');
 });
 
