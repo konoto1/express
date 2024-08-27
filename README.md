@@ -45,7 +45,7 @@ Would like to run this project locally? Open terminal and follow these steps:
     ```sh
     git clone https://github.com/konoto1/express.git
     ```
-2. Open the cloned folder name "react-hangman"
+2. Open the cloned folder
 3. Install NPM packages
     ```sh
     npm i
